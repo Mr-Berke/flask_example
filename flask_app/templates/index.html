@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ödev 6</title>
+    <style>
+        .center-content {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .plot-container {
+            margin-top: 20px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="center-content">
+        <h2>İsim: Berke</h2>
+        <h2>Soyisim: TOPBAŞ</h2>
+        <h3>Öğrenci Numarası: 211213011</h3>
+        <div class="plot-container">
+            <img id="plot" src="{{ url_for('static', filename='kordinatlar_foto.jpeg') }}" alt="Plot">
+        </div>
+        <button onclick="updatePlot()">Yeni Noktalar Oluştur</button>
+    </div>
+    <script>
+        function updatePlot() {
+            fetch('/update_plot')
+            .then(response => response.blob())
+            .then(imageBlob => {
+                const imageObjectURL = URL.createObjectURL(imageBlob);
+                document.getElementById('plot').src = imageObjectURL;
+            });
+        }
+    </script>
+</body>
+</html>
